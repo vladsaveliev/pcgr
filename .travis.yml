@@ -14,16 +14,15 @@ before_install:
   - sudo rm -rf /dev/shm
   - sudo ln -s /run/shm /dev/shm
 
-  # Download data bundles
-  - cd ..
-  - git clone https://github.com/circulosmeos/gdown.pl
-  - gdown.pl/gdown.pl https://drive.google.com/file/d/1cGBAmAh5t4miIeRrrd0zHsPCFToOr0Lf/view pcgr.databundle.grch37.tgz
-  - gzip -dc pcgr.databundle.grch37.tgz | tar xvf -
-
 
 install:
   # Installing (the non-docker version)
   - bash install_no_docker/install.sh
+
+  # Download data bundles
+  - git clone https://github.com/circulosmeos/gdown.pl
+  - gdown.pl/gdown.pl https://drive.google.com/file/d/1cGBAmAh5t4miIeRrrd0zHsPCFToOr0Lf/view pcgr.databundle.grch37.tgz
+  - gzip -dc pcgr.databundle.grch37.tgz | tar xvf -
 
 
 script:
