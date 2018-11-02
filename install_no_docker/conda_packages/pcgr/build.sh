@@ -13,7 +13,7 @@ mkdir -p ${SP_DIR}
 mv ${SRC_DIR}/src/pcgr/lib ${SP_DIR}/pcgr  # python modules
 mv ${SRC_DIR}/src/pcgr/*.py ${PREFIX}/bin/  # python scripts
 mv ${SRC_DIR}/src/R/pcgrr/* ${PREFIX}/lib/R/library/pcgrr/  # R modules
-mv ${SRC_DIR}/src/R/*.R ${PREFIX}/bin/  # R scripts
+mv ${SRC_DIR}/src/*.R ${PREFIX}/bin/  # R scripts
 
 wget https://github.com/EBIvariation/vcf-validator/releases/download/v0.6/vcf_validator -O ${CONDA_PREFIX}/bin/vcf_validator
 chmod +x ${CONDA_PREFIX}/bin/vcf_validator
