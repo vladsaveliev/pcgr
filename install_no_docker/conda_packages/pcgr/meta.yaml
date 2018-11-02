@@ -14,12 +14,13 @@ build:
 requirements:
   build:
     - curl
-    - perl
     - unzip
+    - r-base ==3.4.1
+    - tar
   run:
     #
     # PCGR: python
-    - python>=3.6
+    - python >=3.6
     - pip
     - numpy
     - cython
