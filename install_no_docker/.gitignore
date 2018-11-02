@@ -3,3 +3,4 @@ env_macos.yaml
 vep-install/
 install_vep_macos.sh
 load_pcgr.sh
+conda_packages
