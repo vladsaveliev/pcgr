@@ -16,6 +16,7 @@ requirements:
     - curl
     - unzip
     - r-base ==3.4.1
+    - r-devtools
     - tar
   run:
     #
