@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# For the reference: CONDA env vars: https://conda.io/docs/user-guide/tasks/build-packages/environment-variables.html
 
 ### Few more R packages that are not on yet conda
 export TAR=/bin/tar  # to avoid "/bin/gtar: not found"
@@ -6,14 +7,19 @@ export TAR=/bin/tar  # to avoid "/bin/gtar: not found"
 R -e "library(devtools); options(unzip = '$(which unzip)'); devtools::install_github('mjkallen/rlogging')"
 #R -e "library(devtools); options(unzip = '$(which unzip)'); devtools::install_github('Francescojm/CELLector', dependencies=FALSE)"
 
-# CONDA env vars: https://conda.io/docs/user-guide/tasks/build-packages/environment-variables.html
+# Changing permissions to executables
+chmod +x ${SRC_DIR}/src/pcgr/*.py
+chmod +x ${SRC_DIR}/src/*.R
+# Moving libraries and scripts
 mkdir -p ${PREFIX}/lib/R/library/pcgrr
 mkdir -p ${PREFIX}/bin
 mkdir -p ${SP_DIR}
 mv ${SRC_DIR}/src/pcgr/lib ${SP_DIR}/pcgr  # python modules
 mv ${SRC_DIR}/src/pcgr/*.py ${PREFIX}/bin/  # python scripts
-mv ${SRC_DIR}/src/R/pcgrr/* ${PREFIX}/lib/R/library/pcgrr/  # R modules
 mv ${SRC_DIR}/src/*.R ${PREFIX}/bin/  # R scripts
+# R modules:
+R -e "library(devtools); devtools::install('${SRC_DIR}/src/R/pcgrr', dependencies=FALSE)"
 
+# VCF validator
 wget https://github.com/EBIvariation/vcf-validator/releases/download/v0.6/vcf_validator -O ${CONDA_PREFIX}/bin/vcf_validator
 chmod +x ${CONDA_PREFIX}/bin/vcf_validator
