@@ -78,6 +78,7 @@ requirements:
     - r-configr    # -c vladsaveliev
     - r-sunburstr  # for CELLector, -c vladsaveliev
     - r-arules     # for CELLector, -c vladsaveliev
+    - r-rlogging   # -c pdiakumis
     - bioconductor-variantannotation
     - bioconductor-bsgenome.hsapiens.ucsc.hg19
     - bioconductor-bsgenome.hsapiens.ucsc.hg38
