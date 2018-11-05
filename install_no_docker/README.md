@@ -41,7 +41,7 @@ Activate your environment with:
 conda activate pcgr
 ```
 
-Run PCGR with `--no-docker` flag:
+Run PCGR with `--no-docker` flag. The first agument ("path to pcgr") now doesn't have to contain anything but a `data` directory that you downloaded.
 
 ```
 pcgr.py --input_vcf examples/tumor_sample.BRCA.vcf.gz . test_out grch37 examples/pcgr_conf.BRCA.toml \
