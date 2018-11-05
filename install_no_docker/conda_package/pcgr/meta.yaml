@@ -89,7 +89,7 @@ test:
   commands:
     - pcgr.py --version
   imports:
-    - pcgr
+    - annoutils
 
 about:
   home: https://github.com/sigven/pcgr
