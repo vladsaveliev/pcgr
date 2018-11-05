@@ -551,7 +551,7 @@ def run_pcgr(host_directories, docker_image_version, config_options, sample_id, 
    if not basic:
       logger = getlogger('pcgr-writer')
       logger.info("STEP 4: Generation of output files - variant interpretation report for precision oncology")
-      pcgr_report_command = (docker_command_run1 + os.path.join(r_scripts_dir, "pcgr.R") + " " + output_dir + " " + str(output_pass_tsv) + ".gz" + " " + input_cna_docker + " " + str(sample_id) + " " + input_conf_docker + " " + str(pcgr_version) + " " + genome_assembly + " " + os.path.join(data_dir, docker_command_run_end))
+      pcgr_report_command = (docker_command_run1 + os.path.join(r_scripts_dir, "pcgr.R") + " " + output_dir + " " + str(output_pass_tsv) + ".gz" + " " + input_cna_docker + " " + str(sample_id) + " " + input_conf_docker + " " + str(pcgr_version) + " " + genome_assembly + " " + data_dir + docker_command_run_end)
       #print(pcgr_report_command)
       check_subprocess(pcgr_report_command)
       logger.info("Finished")
