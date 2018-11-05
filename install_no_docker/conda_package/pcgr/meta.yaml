@@ -9,7 +9,10 @@ source:
   path: ../../../
 
 build:
-  number: 2
+  number: 0
+  rpaths:
+    - lib/
+    - lib/R/library/
 
 requirements:
   build:
@@ -89,6 +92,7 @@ requirements:
 test:
   commands:
     - pcgr.py --version
+    - '$R -e "library(pcgrr)"'
   imports:
     - annoutils
 
