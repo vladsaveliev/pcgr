@@ -14,7 +14,7 @@ MINICONDA_DIR=${THIS_DIR}/miniconda
 ENV_NAME=pcgr
 
 # Install conda if needed:
-if [ ! -x "$(command -v conda)" ]; then
+if [ -z "$(command -v conda)" ]; then
     if [ ! -d ${MINICONDA_DIR} ] ; then
         echo "conda executble not in PATH; install conda under ${MINICONDA_DIR}"
         wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ${THIS_DIR}/miniconda.sh
