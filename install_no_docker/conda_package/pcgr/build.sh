@@ -18,7 +18,7 @@ mv ${SRC_DIR}/src/pcgr/lib ${SP_DIR}  # python modules
 mv ${SRC_DIR}/src/pcgr/*.py ${SRC_DIR}/*.py ${PREFIX}/bin/  # python scripts
 mv ${SRC_DIR}/src/*.R ${PREFIX}/bin/  # R scripts
 # R modules:
-R -e "library(devtools); devtools::install('${SRC_DIR}/src/R/pcgrr', dependencies=FALSE)"
+R -e "library(devtools); devtools::install('${SRC_DIR}/src/R/pcgrr', dependencies=FALSE, args=c('--library=${PREFIX}/lib/R/library'))"
 
 # VCF validator
 wget https://github.com/EBIvariation/vcf-validator/releases/download/v0.6/vcf_validator -O ${PREFIX}/bin/vcf_validator
