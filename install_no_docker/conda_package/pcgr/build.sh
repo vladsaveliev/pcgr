@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -x
+
 # For the reference: CONDA env vars: https://conda.io/docs/user-guide/tasks/build-packages/environment-variables.html
 
 ### Few more R packages that are not on yet conda
