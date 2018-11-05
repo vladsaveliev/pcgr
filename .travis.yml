@@ -25,7 +25,7 @@ before_install:
 
 install:
   # Setting up channels and install dependencies
-  - conda config --add channels defaults --add channels vladsaveliev --add channels pdiakumis --add channels bioconda --add channels conda-forge
+  - conda config --add channels defaults --add channels pdiakumis --add channels vladsaveliev --add channels bioconda --add channels conda-forge
   - conda install -q python=$TRAVIS_PYTHON_VERSION pip requests conda-build jinja2 anaconda-client
   # Building package
   - conda build install_no_docker/conda_packages/${PACKAGE_NAME}
