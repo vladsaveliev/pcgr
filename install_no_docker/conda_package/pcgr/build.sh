@@ -14,7 +14,7 @@ chmod +x ${SRC_DIR}/src/*.R
 mkdir -p ${PREFIX}/lib/R/library/pcgrr
 mkdir -p ${PREFIX}/bin
 mkdir -p ${SP_DIR}
-mv ${SRC_DIR}/src/pcgr/lib ${SP_DIR}/pcgr  # python modules
+mv ${SRC_DIR}/src/pcgr/lib ${SP_DIR}  # python modules
 mv ${SRC_DIR}/src/pcgr/*.py ${SRC_DIR}/*.py ${PREFIX}/bin/  # python scripts
 mv ${SRC_DIR}/src/*.R ${PREFIX}/bin/  # R scripts
 # R modules:
