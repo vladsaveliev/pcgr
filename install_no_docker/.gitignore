@@ -1,6 +1,3 @@
 .Rhistory
-env_macos.yaml
-vep-install/
-install_vep_macos.sh
+vep-install
 load_pcgr.sh
-conda_packages
