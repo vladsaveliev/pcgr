@@ -1,5 +1,5 @@
 {% set name = 'pcgr' %}
-{% set version = '0.6.2.1' %}
+{% set version = os.environ.TRAVIS_TAG %}
 
 package:
   name: pcgr
@@ -9,7 +9,7 @@ source:
   path: ../../../
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -66,19 +66,17 @@ requirements:
     - r-rcpptoml
     - r-ggplot2
     - r-dt
-    - r-stringi>=1.1.7  # for pcgrr
-    - r-htmlwidgets>=1.0  # requirement for DT (by default, 0.9 is getting installed)
+    - r-stringi>=1.1.7    # for pcgrr
+    - r-htmlwidgets>=1.0  # for DT (by default, 0.9 is getting installed)
     - r-crosstalk
     - r-deconstructsigs
     - r-knitr>=1.17
     - r-rmarkdown
-    - r-collapsibletree  # for CELLector
-    - r-data.tree  # for collapsibleTree
-    - r-igraph     # for collapsibleTree
-    - r-configr    # -c vladsaveliev
-    - r-sunburstr  # for CELLector, -c vladsaveliev
-    - r-arules     # for CELLector, -c vladsaveliev
-    - r-rlogging   # -c pdiakumis
+    - r-configr           # for pcgrr, -c vladsaveliev
+    - r-collapsibletree   # for CELLector
+    - r-sunburstr         # for CELLector, -c vladsaveliev
+    - r-arules            # for CELLector, -c vladsaveliev
+    - r-rlogging          # for pcgrr, -c pdiakumis
     - bioconductor-variantannotation
     - bioconductor-bsgenome.hsapiens.ucsc.hg19
     - bioconductor-bsgenome.hsapiens.ucsc.hg38
