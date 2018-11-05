@@ -21,5 +21,10 @@ mv ${SRC_DIR}/src/*.R ${PREFIX}/bin/  # R scripts
 R -e "library(devtools); devtools::install('${SRC_DIR}/src/R/pcgrr', dependencies=FALSE)"
 
 # VCF validator
-wget https://github.com/EBIvariation/vcf-validator/releases/download/v0.6/vcf_validator -O ${CONDA_PREFIX}/bin/vcf_validator
-chmod +x ${CONDA_PREFIX}/bin/vcf_validator
+wget https://github.com/EBIvariation/vcf-validator/releases/download/v0.6/vcf_validator -O ${PREFIX}/bin/vcf_validator
+chmod +x ${PREFIX}/bin/vcf_validator
+
+# LoF VEP plugin. VEP-ensemble isntalls LoF automatically, however plugin's most recent version doesn't work with the
+#  most recent perl 5.26 (see https://github.com/sigven/cpsr/issues/2), so we need to manually downgrade it.
+mkdir ${PREFIX}/share/loftee
+tar -xzf ${SRC_DIR}/src/loftee.tgz -C ${PREFIX}/share/loftee
