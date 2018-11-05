@@ -24,7 +24,8 @@ R -e "library(devtools); devtools::install('${SRC_DIR}/src/R/pcgrr', dependencie
 wget https://github.com/EBIvariation/vcf-validator/releases/download/v0.6/vcf_validator -O ${PREFIX}/bin/vcf_validator
 chmod +x ${PREFIX}/bin/vcf_validator
 
-# LoF VEP plugin. VEP-ensemble isntalls LoF automatically, however plugin's most recent version doesn't work with the
-#  most recent perl 5.26 (see https://github.com/sigven/cpsr/issues/2), so we need to manually downgrade it.
+# To make sure same LoF version is used in dockerized and non-dockerized installation.
+# ensembl-vep conda package installs most recent version of LoF automatically, however it doesn't work with the most
+#   recent perl 5.26 (see https://github.com/sigven/cpsr/issues/2)
 mkdir ${PREFIX}/share/loftee
 tar -xzf ${SRC_DIR}/src/loftee.tgz -C ${PREFIX}/share/loftee
