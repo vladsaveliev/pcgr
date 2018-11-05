@@ -73,10 +73,11 @@ requirements:
     - r-knitr>=1.17
     - r-rmarkdown
     - r-configr           # for pcgrr, -c vladsaveliev
+    - r-summarywidget     # for pcgrr, -c pdiakumis
+    - r-rlogging          # for pcgrr, -c pdiakumis
     - r-collapsibletree   # for CELLector
     - r-sunburstr         # for CELLector, -c vladsaveliev
     - r-arules            # for CELLector, -c vladsaveliev
-    - r-rlogging          # for pcgrr, -c pdiakumis
     - bioconductor-variantannotation
     - bioconductor-bsgenome.hsapiens.ucsc.hg19
     - bioconductor-bsgenome.hsapiens.ucsc.hg38
