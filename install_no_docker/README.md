@@ -20,8 +20,19 @@ You can even put that into your `~/.bashrc` or `~/.zshrc` to avoid re-doing it i
 Now create a new environment and install "pcgr" conda package into it:
 
 ```
-conda create -n pcgr -c conda-forge -c bioconda -c vladsaveliev -c pdiakumis -c defaults pcgr
+CHANNELS="-c conda-forge -c bioconda -c vladsaveliev -c pdiakumis -c defaults"
+conda create -n pcgr $CHANNELS pcgr
 conda activate pcgr
+```
+
+Or alternatively build the package from source - useful if you need to use the development code from the repository:
+
+```
+CHANNELS="-c conda-forge -c bioconda -c vladsaveliev -c pdiakumis -c defaults"
+conda build $CHANNELS install_no_docker/conda_package/pcgr
+conda create -n pcgr
+conda activate pcgr
+conda install --use-local $CHANNELS pcgr
 ```
 
 Finally you can download reference data bundle for your genome build and you are all set:
