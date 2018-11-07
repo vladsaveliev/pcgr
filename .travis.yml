@@ -13,7 +13,6 @@ python:
 #  - gzip -dc pcgr.databundle.grch37.tgz | tar xvf -
 
 before_install:
-  - export PACKAGE_NAME=pcgr
   # Get and install anaconda (https://conda.io/docs/travis.html)
   - wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   - bash miniconda.sh -b -p $HOME/miniconda
@@ -24,11 +23,12 @@ before_install:
   - conda info -a  # Useful for debugging any issues with conda
 
 install:
+  - export PACKAGE_NAME=pcgr
   # Setting up channels and install dependencies
-  - conda config --add channels defaults --add channels pdiakumis --add channels vladsaveliev --add channels bioconda --add channels conda-forge
+  - conda config --add channels defaults --add channels pcgr --add channels bioconda --add channels conda-forge
   - conda install -q python=$TRAVIS_PYTHON_VERSION pip requests conda-build jinja2 anaconda-client
   # Building package
-  - conda build install_no_docker/conda_package/${PACKAGE_NAME}
+  - conda build install_no_docker/conda_pkg/${PACKAGE_NAME}
   - conda install --use-local ${PACKAGE_NAME}
 
 script:
@@ -48,7 +48,7 @@ script:
 deploy:
   # Deploy to Anaconda.org
   - provider: script
-    script: anaconda -t ${ANACONDA_TOKEN} upload $HOME/miniconda/conda-bld/**/${PACKAGE_NAME}-*.tar.bz2
+    script: anaconda -t ${ANACONDA_TOKEN} upload -u pcgr $HOME/miniconda/conda-bld/**/${PACKAGE_NAME}-*.tar.bz2
     on:
       tags: true
     skip_cleanup: true
