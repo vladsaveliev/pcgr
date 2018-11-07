@@ -1,5 +1,5 @@
 {% set name = 'pcgr_dockerized' %}
-{% set version = os.environ.TRAVIS_TAG %}
+{% set version = os.environ.get('TRAVIS_TAG', 'dev') %}
 
 package:
   name: {{ name }}
