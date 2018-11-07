@@ -2,7 +2,7 @@
 {% set version = os.environ.TRAVIS_TAG %}
 
 package:
-  name: pcgr
+  name: {{ name }}
   version: {{ version }}
 
 source:
