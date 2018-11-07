@@ -21,6 +21,8 @@ requirements:
     - r-base
     - r-devtools
     - tar
+    - python
+    - toml
     #
     # Need R packages build-time to correctly install pcgrr
     - pandoc==2.3.1
