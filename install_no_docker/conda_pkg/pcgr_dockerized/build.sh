@@ -2,4 +2,4 @@
 
 mkdir -p ${PREFIX}/bin
 chmod +x ${SRC_DIR}/*.py
-${SRC_DIR}/*.py ${PREFIX}/bin/
+mv ${SRC_DIR}/*.py ${PREFIX}/bin/
