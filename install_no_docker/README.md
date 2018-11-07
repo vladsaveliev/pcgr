@@ -1,35 +1,32 @@
 ## Installing PCGR using conda
 
-This is an alternative installation approach that does not require Docker on your machine. At the moment it works only in linux machines.
+This is an alternative installation approach that does not require Docker on your machine. At the moment it works only in linux systems.
 
-First, you need conda package manager. Get it with:
+First you need to download conda package manager. Get it with:
 
 ```
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
 bash miniconda.sh -b -p ./miniconda
 ```
 
-Run the following to add conda into your PATH. 
+Run the following to add conda into your PATH. You can even put that into your `~/.bashrc` or `~/.zshrc` to avoid re-running this in the future:
 
 ```
 . ./miniconda/etc/profile.d/conda.sh
 ```
 
-You can even put that into your `~/.bashrc` or `~/.zshrc` to avoid re-doing it in the future.
-
 Now create a new environment and install "pcgr" conda package into it:
 
+# TODO: move packages to "pcgr" environment
 ```
-CHANNELS="-c conda-forge -c bioconda -c vladsaveliev -c pdiakumis -c defaults"
-conda create -n pcgr $CHANNELS pcgr
+conda create -n pcgr -c conda-forge -c bioconda -c pcgr -c defaults pcgr
 conda activate pcgr
 ```
 
 Or alternatively build the package from source - useful if you need to use the development code from the repository:
 
 ```
-CHANNELS="-c conda-forge -c bioconda -c vladsaveliev -c pdiakumis -c defaults"
-conda build $CHANNELS install_no_docker/conda_package/pcgr
+conda build -c conda-forge -c bioconda -c pcgr -c defaults install_no_docker/conda_package/pcgr
 conda create -n pcgr
 conda activate pcgr
 conda install --use-local $CHANNELS pcgr
