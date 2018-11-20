@@ -278,9 +278,6 @@ def verify_input_files(input_vcf, input_cna, configuration_file, pcgr_config_opt
       if not os.path.exists(os.path.abspath(input_cna)):
          err_msg = "Input file (" + str(input_cna) + ") does not exist"
          pcgr_error_message(err_msg,logger)
-      if not (os.path.abspath(input_cna).endswith('.tsv') or os.path.abspath(input_cna).endswith('.txt')):
-         err_msg = "CNA segment input file (" + os.path.abspath(input_cna) + ") does not have the correct file extension (.tsv or .txt)"
-         pcgr_error_message(err_msg,logger)
       input_cna_basename = os.path.basename(str(input_cna))
       input_cna_dir = os.path.dirname(os.path.abspath(input_cna))
 
