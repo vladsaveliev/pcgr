@@ -29,9 +29,9 @@ install:
 script:
   - pcgr.py --version
   - python -c "import pcgr"
-  - pcgr.py \
-    --input_vcf examples/tumor_sample.COAD.vcf.gz \
-    --input_cna examples/tumor_sample.COAD.cna.tsv \
+  - pcgr.py
+    --input_vcf examples/tumor_sample.COAD.vcf.gz
+    --input_cna examples/tumor_sample.COAD.cna.tsv
     . ./examples grch37 examples/pcgr_conf.COAD.toml tumor_sample.COAD --no-docker
 
 deploy:
