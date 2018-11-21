@@ -4,7 +4,10 @@ services:
   - docker
 
 install:
-  - pip install toml
+  - wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH=$HOME/miniconda/bin:$PATH
+  - conda install -y -c conda-forge toml
   - docker pull sigven/pcgr:dev
   - gdown https://drive.google.com/uc?id=1OL5C994HDaeadASz7KzMhPoXfdSiyhNy -O - | tar xvzf - # grch37
 
@@ -16,3 +19,23 @@ test_script:
     . ./examples grch37 examples/pcgr_conf.COAD.toml tumor_sample.COAD --no-docker
 
 build: off
+
+# TODO: build and push docker from here - see https://stefanscherer.github.io/setup-windows-docker-ci-appveyor/
+#environment:
+#  DOCKER_USER:
+#    secure: xxxxxxx
+#  DOCKER_PASS:
+#    secure: yyyyyyy
+#
+#install:
+#  - docker version
+#
+#build_script:
+#  - docker build -t me/myfavoriteapp .
+#
+#test_script:
+#  - docker run me/myfavoriteapp
+#
+#deploy_script:
+#  - docker login -u="$env:DOCKER_USER" -p="$env:DOCKER_PASS"
+#  - docker push me/myfavoriteapp
