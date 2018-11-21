@@ -24,7 +24,7 @@ install:
   - conda build install_no_docker/conda_pkg/${PACKAGE_NAME}_dockerized
   - conda install --use-local ${PACKAGE_NAME}
   # Download the data bundle
-  - gdown https://drive.google.com/uc?id=1OL5C994HDaeadASz7KzMhPoXfdSiyhNy -O - | tar xvzf - # grch37
+  - gdown https://drive.google.com/uc?id=1OL5C994HDaeadASz7KzMhPoXfdSiyhNy -O - | tar xzf - # grch37
 
 script:
   - pcgr.py --version
