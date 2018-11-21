@@ -4,11 +4,13 @@ services:
   - docker
 
 install:
-  - wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH=$HOME/miniconda/bin:$PATH
-  - conda install -y -c conda-forge toml
+  - sudo pip install toml
+  - service docker start
   - docker pull sigven/pcgr:dev
+#  - wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+#  - bash miniconda.sh -b -p $HOME/miniconda
+#  - export PATH=$HOME/miniconda/bin:$PATH
+#  - conda install -y -c conda-forge toml
   - gdown https://drive.google.com/uc?id=1OL5C994HDaeadASz7KzMhPoXfdSiyhNy -O - | tar xvzf - # grch37
 
 test_script:
