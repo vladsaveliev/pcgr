@@ -1,24 +1,18 @@
 image: ubuntu
 
+services:
+  - docker
+
 install:
-  - wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH=$HOME/miniconda/bin:$PATH
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  - conda info -a  # Useful for debugging any issues with conda
-  - export PACKAGE_NAME=pcgr
-  # Setting up channels and install dependencies
-  - conda config --add channels pcgr --add channels bioconda --add channels conda-forge
-  - conda install -q python=$TRAVIS_PYTHON_VERSION pip requests conda-build jinja2 anaconda-client
-  # Building package
-  - conda build install_no_docker/conda_pkg/${PACKAGE_NAME}
-  - conda build install_no_docker/conda_pkg/${PACKAGE_NAME}_dockerized
-  - conda install --use-local ${PACKAGE_NAME}
+  - pip install toml
+  - docker pull sigven/pcgr:dev
+  - gdown https://drive.google.com/uc?id=1OL5C994HDaeadASz7KzMhPoXfdSiyhNy -O - | tar xvzf - # grch37
 
 test_script:
-  - pcgr.py --version
-  - python -c "import pcgr"
+  - python pcgr.py --version
+  - python pcgr.py \
+    --input_vcf examples/tumor_sample.COAD.vcf.gz \
+    --input_cna examples/tumor_sample.COAD.cna.tsv \
+    . ./examples grch37 examples/pcgr_conf.COAD.toml tumor_sample.COAD --no-docker
 
 build: off
