@@ -15,24 +15,36 @@ before_install:
   - conda info -a  # Useful for debugging any issues with conda
 
 install:
+  # Download the data bundle
+  - gdown https://drive.google.com/uc?id=1OL5C994HDaeadASz7KzMhPoXfdSiyhNy -O - | tar xzf - # grch37
+  # Set up conda
   - export PACKAGE_NAME=pcgr
   # Setting up channels and install dependencies
   - conda config --add channels pcgr --add channels bioconda --add channels conda-forge
   - conda install -q python=$TRAVIS_PYTHON_VERSION pip requests conda-build jinja2 anaconda-client
-  # Building package
+  # Building packages
   - conda build install_no_docker/conda_pkg/${PACKAGE_NAME}
   - conda build install_no_docker/conda_pkg/${PACKAGE_NAME}_dockerized
-  - conda install --use-local ${PACKAGE_NAME}
-  # Download the data bundle
-  - gdown https://drive.google.com/uc?id=1OL5C994HDaeadASz7KzMhPoXfdSiyhNy -O - | tar xzf - # grch37
 
 script:
+  # Dockerized installation:
+  - docker pull sigven/pcgr:dev
+  - conda install --use-local ${PACKAGE_NAME}_dockerized
   - pcgr.py --version
   - python -c "import pcgr"
   - pcgr.py
     --input_vcf examples/tumor_sample.COAD.vcf.gz
     --input_cna examples/tumor_sample.COAD.cna.tsv
-    . ./examples grch37 examples/pcgr_conf.COAD.toml tumor_sample.COAD --no-docker
+    . ./examples grch37 examples/pcgr_conf.COAD.toml tumor_sample.COAD
+  #
+  # Condarized installation:
+  - conda install --use-local ${PACKAGE_NAME}
+  - pcgr.py --version
+  - python -c "import pcgr"
+  - pcgr.py
+    --input_vcf examples/tumor_sample.BRCA.vcf.gz
+    --input_cna examples/tumor_sample.BRCA.cna.tsv
+    . ./examples grch37 examples/pcgr_conf.BRCA.toml tumor_sample.BRCA --no-docker
 
 deploy:
   # Deploy to Anaconda.org
