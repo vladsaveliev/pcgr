@@ -10,11 +10,13 @@ install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH=$HOME/miniconda/bin:$PATH
   - conda install -y -c conda-forge -c pcgr toml gdown
-#  - gdown https://drive.google.com/uc?id=1OL5C994HDaeadASz7KzMhPoXfdSiyhNy -O - | tar xzf - # grch37
+  # Commenting out because getting "not enough disk space":
+  #  - gdown https://drive.google.com/uc?id=1OL5C994HDaeadASz7KzMhPoXfdSiyhNy -O - | tar xzf - # grch37
 
 test_script:
   - python pcgr.py --version
-#  - python pcgr.py --input_vcf examples/tumor_sample.COAD.vcf.gz --input_cna examples/tumor_sample.COAD.cna.tsv . ./examples grch37 examples/pcgr_conf.COAD.toml tumor_sample.COAD
+  # Commenting out because getting "not enough disk space" at gdown step:
+  #  - python pcgr.py --input_vcf examples/tumor_sample.COAD.vcf.gz --input_cna examples/tumor_sample.COAD.cna.tsv . ./examples grch37 examples/pcgr_conf.COAD.toml tumor_sample.COAD
 
 build: off
 
