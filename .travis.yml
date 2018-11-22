@@ -15,8 +15,6 @@ before_install:
   - conda info -a  # Useful for debugging any issues with conda
 
 install:
-  # Download the data bundle
-  - gdown https://drive.google.com/uc?id=1OL5C994HDaeadASz7KzMhPoXfdSiyhNy -O - | tar xzf - # grch37
   # Set up conda
   - export PACKAGE_NAME=pcgr
   # Setting up channels and install dependencies
@@ -25,11 +23,15 @@ install:
   # Building packages
   - conda build install_no_docker/conda_pkg/${PACKAGE_NAME}
   - conda build install_no_docker/conda_pkg/${PACKAGE_NAME}_dockerized
-
-script:
+  #
   # Dockerized installation:
   - docker pull sigven/pcgr:dev
   - conda install --use-local ${PACKAGE_NAME}_dockerized
+  # Download the data bundle (usable for both version)
+  - gdown https://drive.google.com/uc?id=1OL5C994HDaeadASz7KzMhPoXfdSiyhNy -O - | tar xzf - # grch37
+
+script:
+  # Dockerized installation:
   - pcgr.py --version
   - python -c "import pcgr"
   - pcgr.py
