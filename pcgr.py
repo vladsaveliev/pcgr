@@ -454,7 +454,7 @@ def verify_input_files(input_vcf, input_cna, input_cna_plot, panel_normal_vcf, c
    
 
 def check_subprocess(command):
-   #print(command)
+   print(command)
    try:
       output = subprocess.check_output(str(command), stderr=subprocess.STDOUT, shell=True)
       if len(output) > 0:
@@ -723,7 +723,7 @@ def run_pcgr(host_directories, docker_image_version, config_options, sample_id, 
       logger = getlogger('pcgr-writer')
       logger.info("STEP 4: Generation of output files - variant interpretation report for precision oncology")
       pcgr_report_command = (docker_command_run1 + os.path.join(r_scripts_dir, "pcgr.R") + " " + output_dir + " " + str(output_pass_tsv) + ".gz" + " " + input_cna_docker + " " + str(sample_id) + " " + input_conf_docker + " " + str(pcgr_version) + " " + genome_assembly + " " + data_dir + " " + str(input_cna_plot_docker) + " " + str(tumor_properties['tumor_purity']) + " " + str(tumor_properties['tumor_ploidy']) + docker_command_run_end)
-      #print(pcgr_report_command)
+      print(pcgr_report_command)
       check_subprocess(pcgr_report_command)
       logger.info("Finished")
 
