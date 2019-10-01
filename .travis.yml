@@ -31,8 +31,8 @@ install:
   - docker pull sigven/pcgr:dev
   - conda install --use-local ${PACKAGE_NAME}_dockerized
   # Download the data bundle (usable for both version)
-  - wget https://raw.githubusercontent.com/circulosmeos/gdown.pl/master/gdown.pl
-  - perl gdown.pl "https://drive.google.com/uc?id=1cBwhrE1XtzSRFXVz-7HBeswFSTlbYONu" grch37.tar.gz && tar -xzf grch37.tar.gz  # will extract into ./data/grch37/
+  - aws s3 cp s3://pcgr-refdata/pcgr_grch37.tar.gz .
+  - tar -xzf pcgr_grch37.tar.gz  # will extract into ./data/grch37/
 
 script:
   # Dockerized installation:
@@ -47,9 +47,9 @@ script:
   - conda install --use-local ${PACKAGE_NAME}
   - pcgr.py --version
   - python -c "import pcgr"
-  - pcgr.py
-    --input_vcf examples/tumor_sample.BRCA.vcf.gz
-    --input_cna examples/tumor_sample.BRCA.cna.tsv
+  - pcgr.py \
+    --input_vcf examples/tumor_sample.BRCA.vcf.gz \
+    --input_cna examples/tumor_sample.BRCA.cna.tsv \
     . ./examples grch37 examples/examples_BRCA.toml tumor_sample.BRCA --no-docker
 
 deploy:
