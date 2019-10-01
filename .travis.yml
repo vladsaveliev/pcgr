@@ -23,9 +23,6 @@ install:
   # Setting up channels and install dependencies
   - conda config --add channels pcgr --add channels bioconda --add channels conda-forge
   - conda install -q python=$TRAVIS_PYTHON_VERSION pip requests conda-build jinja2 anaconda-client awscli
-  # Download the data bundle (usable for both version)
-  - aws s3 cp s3://pcgr-refdata/pcgr_grch37.tar.gz .
-  - tar -xzf pcgr_grch37.tar.gz  # will extract into ./data/grch37/
   # Building packages
   - conda build install_no_docker/conda_pkg/${PACKAGE_NAME}
   - conda build install_no_docker/conda_pkg/${PACKAGE_NAME}_dockerized
@@ -33,24 +30,27 @@ install:
   # Dockerized installation:
   - docker pull sigven/pcgr:dev
   - conda install --use-local ${PACKAGE_NAME}_dockerized
+  # Download the data bundle (usable for both version)
+#  - aws s3 cp s3://pcgr-refdata/pcgr_grch37.tar.gz .
+#  - tar -xzf pcgr_grch37.tar.gz  # will extract into ./data/grch37/
 
 script:
   # Dockerized installation:
   - pcgr.py --version
   - python -c "import pcgr"
-  - pcgr.py
-    --input_vcf examples/tumor_sample.COAD.vcf.gz
-    --input_cna examples/tumor_sample.COAD.cna.tsv
-    . ./examples grch37 examples/examples_BRCA.toml tumor_sample.COAD
-  #
+  # - pcgr.py
+  #   --input_vcf examples/tumor_sample.COAD.vcf.gz
+  #   --input_cna examples/tumor_sample.COAD.cna.tsv
+  #   . ./examples grch37 examples/examples_BRCA.toml tumor_sample.COAD
+  # #
   # Condarized installation:
   - conda install --use-local ${PACKAGE_NAME}
   - pcgr.py --version
   - python -c "import pcgr"
-  - pcgr.py \
-    --input_vcf examples/tumor_sample.BRCA.vcf.gz \
-    --input_cna examples/tumor_sample.BRCA.cna.tsv \
-    . ./examples grch37 examples/examples_BRCA.toml tumor_sample.BRCA --no-docker
+  # - pcgr.py \
+  #   --input_vcf examples/tumor_sample.BRCA.vcf.gz \
+  #   --input_cna examples/tumor_sample.BRCA.cna.tsv \
+  #   . ./examples grch37 examples/examples_BRCA.toml tumor_sample.BRCA --no-docker
 
 deploy:
   # Deploy to Anaconda.org
