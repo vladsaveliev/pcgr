@@ -13,7 +13,7 @@ import toml
 from argparse import RawTextHelpFormatter
 
 
-PCGR_VERSION = 'dev'
+PCGR_VERSION = '0.9.0'
 DB_VERSION = 'PCGR_DB_VERSION = 20200920'
 VEP_VERSION = '101'
 GENCODE_VERSION = '35'
@@ -21,8 +21,6 @@ NCBI_BUILD_MAF = "GRCh38"
 VEP_ASSEMBLY = "GRCh38"
 DOCKER_IMAGE_VERSION = 'sigven/pcgr:' + str(PCGR_VERSION)
 
-
-#global vep_assembly
 global debug
 
 
