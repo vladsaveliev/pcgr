@@ -23,8 +23,7 @@ def read_infotag_file(vcf_info_tags_tsv):
    A dictionary is returned, with the tag as the key, and the full dictionary record as the value
    """
    info_tag_xref = {} ##dictionary returned
-   if not os.path.exists(vcf_info_tags_tsv):
-      return info_tag_xref
+   assert os.path.exists(vcf_info_tags_tsv)
    tsvfile = open(vcf_info_tags_tsv, 'r')
    reader = csv.DictReader(tsvfile, delimiter='\t')
    for row in reader:
@@ -93,8 +92,6 @@ def getlogger(logger_name):
 
 
 def get_correct_cpg_transcript(vep_csq_records):
-
-  
    index = 0
    if len(vep_csq_records) == 1:
       return index
@@ -111,19 +108,29 @@ def get_correct_cpg_transcript(vep_csq_records):
       csq_idx_dict[g]['coding'] = False
 
    num_cpg_blocks = 0
-   while j < len(vep_csq_records):
+
+   coding_js = []
+   for j in range(len(vep_csq_records)):
+      # prefer coding on over anything else
+      if vep_csq_records[j].get('CODING_STATUS') == 'coding':
+         coding_js.append(j)
+
+   # if there are coding mutations, looking only at them. otherwise looking at all mutations.
+   num_of_panels = 0
+   for j in (coding_js or range(len(vep_csq_records))):
       if 'CANCER_PREDISPOSITION_SOURCE' in vep_csq_records[j] or 'GE_PANEL_ID' in vep_csq_records[j]:
-         if csq_idx is None:  # if we didn't pick anything yet, picking one in a predispositoin gene
+         new_num_of_panels = len(vep_csq_records[j].get('CANCER_PREDISPOSITION_SOURCE', '').split('&'))
+         if new_num_of_panels > num_of_panels:
+            num_of_panels = new_num_of_panels
             csq_idx = j
          num_cpg_blocks += 1
          if 'SYMBOL' in vep_csq_records[j]:
             if vep_csq_records[j]['SYMBOL'] in csq_idx_dict.keys():
                csq_idx_dict[str(vep_csq_records[j]['SYMBOL'])]['idx'] = j
                if vep_csq_records[j]['CODING_STATUS'] == 'coding':
-                  csq_idx = j  # prefer coding on over anything else
                   csq_idx_dict[str(vep_csq_records[j]['SYMBOL'])]['coding'] = True
       j = j + 1
-   
+
    if csq_idx_dict['KLLN']['idx'] != -1 and csq_idx_dict['PTEN']['idx'] != -1:
       csq_idx = csq_idx_dict['PTEN']['idx']
       if csq_idx_dict['KLLN']['coding'] is True:
