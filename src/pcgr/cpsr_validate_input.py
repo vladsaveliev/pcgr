@@ -194,7 +194,7 @@ def simplify_vcf(input_vcf, vcf, custom_bed, pcgr_directory, genome_assembly, vi
    check_subprocess(command_vcf_sample_free4)
    check_subprocess(command_vcf_sample_free5)
    if not custom_bed == 'None':
-      check_subprocessm(command_custom_bed1)
+      check_subprocess(command_custom_bed1)
       check_subprocess(command_custom_bed2)
 
    if multiallelic_alt == 1:
