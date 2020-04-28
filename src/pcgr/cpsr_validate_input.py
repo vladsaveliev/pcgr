@@ -207,7 +207,11 @@ def simplify_vcf(input_vcf, vcf, custom_bed, pcgr_directory, genome_assembly, vi
    check_subprocess(command_vcf_sample_free3)
    check_subprocess(command_vcf_sample_free4)
    check_subprocess(command_vcf_sample_free5)
-  
+
+   if not custom_bed == 'None':
+      check_subprocess(command_custom_bed1)
+      check_subprocess(command_custom_bed2)
+
    if multiallelic_alt == 1:
       logger.info('Decomposing multi-allelic sites in input VCF file using \'vt decompose\'')
       command_decompose = 'vt decompose -s ' + str(input_vcf_cpsr_ready) + ' > ' + str(input_vcf_cpsr_ready_decomposed) + ' 2> ' + os.path.join(output_dir, 'decompose.log')
