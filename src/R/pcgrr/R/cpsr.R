@@ -381,43 +381,26 @@ assign_pathogenicity_evidence <- function(cpg_calls, cpsr_config, pcgr_data) {
   if (gad_AN_tag %in% colnames(cpg_calls) & gad_AC_tag %in% colnames(cpg_calls) & gad_NHOMALT_tag %in% colnames(cpg_calls)) {
 
     cpg_calls <- cpg_calls %>%
-      dplyr::mutate(gad_af = dplyr::if_else(!!rlang::sym(gad_AN_tag) >= min_an,
-                                            as.numeric(!!rlang::sym(gad_AC_tag) / !!rlang::sym(gad_AN_tag)),
-                                            as.double(NA), as.double(NA))) %>%
-      dplyr::mutate(ACMG_PM2_1 = dplyr::if_else(!!rlang::sym(gad_AN_tag) >= min_an &
-                                                  !is.na(!!rlang::sym(gad_AC_tag)) &
-                                                  gad_af <= pathogenic_range_af,
-                                                TRUE, FALSE, FALSE)) %>%
-      dplyr::mutate(ACMG_PM2_2 = dplyr::if_else(is.na(!!rlang::sym(gad_AC_tag)),
-                                                TRUE, FALSE, FALSE)) %>%
-      dplyr::mutate(ACMG_BA1_AD = dplyr::if_else(ACMG_PM2_2 == FALSE &
-                                                   gad_af >= 0.005 &
-                                                   cpsr_gene_moi == "AD",
-                                                 TRUE, FALSE, FALSE)) %>%
-      dplyr::mutate(ACMG_BS1_1_AD = dplyr::if_else(ACMG_BA1_AD == FALSE &
-                                                     ACMG_PM2_2 == FALSE &
-                                                     gad_af >= 0.001 & cpsr_gene_moi == "AD",
-                                                   TRUE, FALSE, FALSE)) %>%
-      dplyr::mutate(ACMG_BS1_2_AD = dplyr::if_else(ACMG_BS1_1_AD == FALSE &
-                                                     ACMG_BA1_AD == FALSE &
-                                                     ACMG_PM2_2 == FALSE &
-                                                     gad_af > pathogenic_range_af & cpsr_gene_moi == "AD",
-                                                   TRUE, FALSE, FALSE)) %>%
-      dplyr::mutate(ACMG_BA1_AR = dplyr::if_else(ACMG_PM2_2 == FALSE &
-                                                   gad_af >= 0.01 &
-                                                   (cpsr_gene_moi == "AR" | is.na(cpsr_gene_moi)),
-                                                 TRUE, FALSE, FALSE)) %>%
-      dplyr::mutate(ACMG_BS1_1_AR = dplyr::if_else(ACMG_BA1_AR == FALSE &
-                                                     ACMG_PM2_2 == FALSE &
-                                                     gad_af >= 0.003 &
-                                                     (cpsr_gene_moi == "AR" | is.na(cpsr_gene_moi)),
-                                                   TRUE, FALSE, FALSE)) %>%
-      dplyr::mutate(ACMG_BS1_2_AR = dplyr::if_else(ACMG_BA1_AR == FALSE &
-                                                     ACMG_BS1_1_AR == FALSE &
-                                                     ACMG_PM2_2 == FALSE &
-                                                     gad_af > pathogenic_range_af &
-                                                     (cpsr_gene_moi == "AR" | is.na(cpsr_gene_moi)),
-                                                   TRUE, FALSE, FALSE))
+      dplyr::mutate(gad_af = dplyr::if_else(as.numeric(!!rlang::sym(gad_AN_tag)) >= min_an,
+                                            as.numeric(as.numeric(!!rlang::sym(gad_AC_tag))/  as.numeric(!!rlang::sym(gad_AN_tag))),
+                                            as.double(NA), as.double(NA)))
+    cpg_calls <- cpg_calls %>%
+      dplyr::mutate(ACMG_PM2_1 = dplyr::if_else(as.numeric(!!rlang::sym(gad_AN_tag)) >= min_an &
+                        !is.na(!!rlang::sym(gad_AC_tag)) & gad_af <= pathogenic_range_af,TRUE,FALSE,FALSE))
+    cpg_calls <- cpg_calls %>%
+      dplyr::mutate(ACMG_PM2_2 = dplyr::if_else(is.na(!!rlang::sym(gad_AC_tag)),TRUE,FALSE,FALSE))
+    cpg_calls <- cpg_calls %>%
+      dplyr::mutate(ACMG_BA1_AD = dplyr::if_else(ACMG_PM2_2 == FALSE & gad_af >= 0.005 & cpsr_gene_moi == "AD",TRUE,FALSE,FALSE))
+    cpg_calls <- cpg_calls %>%
+      dplyr::mutate(ACMG_BS1_1_AD = dplyr::if_else(ACMG_BA1_AD == FALSE & ACMG_PM2_2 == FALSE & gad_af >= 0.001 & cpsr_gene_moi == "AD",TRUE,FALSE,FALSE))
+    cpg_calls <- cpg_calls %>%
+      dplyr::mutate(ACMG_BS1_2_AD = dplyr::if_else(ACMG_BS1_1_AD == FALSE & ACMG_BA1_AD == FALSE & ACMG_PM2_2 == FALSE & gad_af > pathogenic_range_af & cpsr_gene_moi == "AD",TRUE,FALSE,FALSE))
+    cpg_calls <- cpg_calls %>%
+      dplyr::mutate(ACMG_BA1_AR = dplyr::if_else(ACMG_PM2_2 == FALSE & gad_af >= 0.01 & (cpsr_gene_moi == "AR" | is.na(cpsr_gene_moi)),TRUE,FALSE,FALSE))
+    cpg_calls <- cpg_calls %>%
+      dplyr::mutate(ACMG_BS1_1_AR = dplyr::if_else(ACMG_BA1_AR == FALSE & ACMG_PM2_2 == FALSE & gad_af >= 0.003 & (cpsr_gene_moi == "AR" | is.na(cpsr_gene_moi)),TRUE,FALSE,FALSE))
+    cpg_calls <- cpg_calls %>%
+      dplyr::mutate(ACMG_BS1_2_AR = dplyr::if_else(ACMG_BA1_AR == FALSE & ACMG_BS1_1_AR == FALSE & ACMG_PM2_2 == FALSE & gad_af > pathogenic_range_af & (cpsr_gene_moi == "AR" | is.na(cpsr_gene_moi)),TRUE,FALSE,FALSE))
   }
 
   ## Assign logical ACMG evidence indicators on NULL variants in known predisposition genes (LoF established as mechanism of disease or not, presumed loss of mRNA/protein (LOFTEE) or not)
