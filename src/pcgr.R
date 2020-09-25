@@ -165,7 +165,6 @@ if(!is.null(pcg_report)){
   }
   pcgrr::write_report_output(dir, pcg_report, sample_name, genome_assembly, output_format = 'cna_tsv')
   pcgrr::write_report_output(dir, pcg_report, sample_name, genome_assembly, output_format = 'html')
-  pcgrr::write_report_output(dir, pcg_report, sample_name, genome_assembly, output_format = 'html', flexdb = T)
 
 }
 
