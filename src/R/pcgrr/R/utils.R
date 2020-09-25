@@ -2079,7 +2079,6 @@ update_maf_allelic_support <- function(calls, maf_fname_tmp,
     dplyr::mutate(Start_Position = dplyr::if_else(VARIANT_CLASS == "deletion",
                                                   Start_Position + 1,
                                                   as.double(Start_Position)))
-
     if (!is.null(maf_data)) {
       if (!any(is.na(calls_maf$DP_TUMOR)) & !any(is.na(calls_maf$AF_TUMOR))) {
         calls_maf$t_depth_estimate <- calls_maf$DP_TUMOR
@@ -2091,8 +2090,8 @@ update_maf_allelic_support <- function(calls, maf_fname_tmp,
         maf_data <- maf_data %>%
           dplyr::mutate(Chromosome = as.character(Chromosome)) %>%
           dplyr::mutate(VARIANT_CLASS = as.character(VARIANT_CLASS)) %>%
-          dplyr::left_join(dplyr::select(calls_maf,-c(DP_CONTROL,AF_CONTROL)),
-                           by=c("Chromosome","Start_Position","VARIANT_CLASS")) %>%
+          dplyr::left_join(dplyr::select(calls_maf, -c(DP_CONTROL, AF_CONTROL)),
+                           by=c("Chromosome", "Start_Position", "VARIANT_CLASS")) %>%
           dplyr::mutate(t_depth = t_depth_estimate, t_ref_count = t_ref_count_estimate,
                         t_alt_count = t_alt_count_estimate) %>%
           dplyr::mutate(t_depth_estimate = NULL, t_ref_count_estimate = NULL, t_alt_count_estimate = NULL)
