@@ -50,9 +50,6 @@ if(set_other == 0 | set_clinvar == 0){
 ```
 
 
-```{r panel_cpsr, child='cpsr_rmarkdown/cpsr_virtual_panel.Rmd'}
-```
-
 ```{r summary_cpsr, child='cpsr_rmarkdown/cpsr_summary.Rmd'}
 ```
 
